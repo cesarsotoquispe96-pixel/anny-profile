@@ -554,9 +554,131 @@
     margin-top: 4px;
     margin-bottom: 4px;
   }
+
+  /* ── Password screen ── */
+  #lockScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: linear-gradient(135deg, #fce8ed 0%, #fdf4f0 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .lock-box {
+    background: white;
+    border-radius: 24px;
+    padding: 44px 36px;
+    text-align: center;
+    max-width: 360px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(212,96,122,.15);
+    border: 1.5px solid var(--rose-lt);
+    animation: lockIn .4s cubic-bezier(.4,0,.2,1);
+  }
+  @keyframes lockIn {
+    from { opacity:0; transform: translateY(24px) scale(.97); }
+    to   { opacity:1; transform: translateY(0) scale(1); }
+  }
+  .lock-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    display: block;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  .lock-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--deep);
+    margin-bottom: 4px;
+  }
+  .lock-title em { color: var(--rose); font-style: italic; }
+  .lock-subtitle {
+    font-size: .82rem;
+    color: var(--muted);
+    margin-bottom: 28px;
+    font-weight: 300;
+  }
+  .lock-input {
+    width: 100%;
+    background: var(--blush);
+    border: 1.5px solid var(--soft);
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-family: 'Jost', sans-serif;
+    font-size: 1rem;
+    color: var(--text);
+    text-align: center;
+    letter-spacing: .12em;
+    outline: none;
+    transition: all .2s;
+    margin-bottom: 14px;
+  }
+  .lock-input:focus {
+    border-color: var(--rose);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(212,96,122,.1);
+  }
+  .lock-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--rose), #c04060);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Jost', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .22s;
+    box-shadow: 0 6px 20px rgba(212,96,122,.35);
+    letter-spacing: .04em;
+  }
+  .lock-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(212,96,122,.4);
+  }
+  .lock-error {
+    color: var(--rose);
+    font-size: .82rem;
+    margin-top: 10px;
+    min-height: 20px;
+    font-weight: 500;
+    animation: shake .3s ease;
+  }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25%      { transform: translateX(-6px); }
+    75%      { transform: translateX(6px); }
+  }
+  .lock-hint {
+    font-size: .72rem;
+    color: var(--muted);
+    margin-top: 16px;
+    font-style: italic;
+  }
+  #appContent { display: none; }
 </style>
 </head>
 <body>
+
+<!-- ── Lock Screen ── -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <span class="lock-icon">🔐</span>
+    <div class="lock-title">Diario de <em>Amor</em></div>
+    <div class="lock-subtitle">Ingresa la contraseña para continuar 🌸</div>
+    <input class="lock-input" type="password" id="lockInput" placeholder="••••••••••••" maxlength="30" />
+    <button class="lock-btn" id="lockBtn">Entrar 💕</button>
+    <div class="lock-error" id="lockError"></div>
+    <div class="lock-hint">Solo tú conoces esta contraseña 🌷</div>
+  </div>
+</div>
+
+<!-- ── App Content ── -->
+<div id="appContent">
 
 <!-- Floating petals -->
 <div class="petals" id="petals"></div>
@@ -592,7 +714,50 @@
 <!-- Toast -->
 <div class="toast" id="toast">✓ Guardado</div>
 
+</div><!-- end appContent -->
+
 <script type="module">
+// ── Contraseña ────────────────────────────────────
+const PASSWORD = "AyC300716syf";
+const SESSION_KEY = "anny_unlocked";
+
+function checkSession(){
+  return sessionStorage.getItem(SESSION_KEY) === "true";
+}
+
+function unlock(){
+  sessionStorage.setItem(SESSION_KEY, "true");
+  document.getElementById('lockScreen').style.display = 'none';
+  document.getElementById('appContent').style.display = 'block';
+  initApp();
+}
+
+function tryPassword(){
+  const val = document.getElementById('lockInput').value;
+  const err = document.getElementById('lockError');
+  if(val === PASSWORD){
+    unlock();
+  } else {
+    err.textContent = '❌ Contraseña incorrecta, intenta de nuevo';
+    err.style.animation = 'none';
+    setTimeout(()=> err.style.animation = 'shake .3s ease', 10);
+    document.getElementById('lockInput').value = '';
+    document.getElementById('lockInput').focus();
+  }
+}
+
+document.getElementById('lockBtn').addEventListener('click', tryPassword);
+document.getElementById('lockInput').addEventListener('keydown', e => {
+  if(e.key === 'Enter') tryPassword();
+});
+
+// Si ya estaba autenticado en esta sesión, entrar directo
+if(checkSession()){
+  document.getElementById('lockScreen').style.display = 'none';
+  document.getElementById('appContent').style.display = 'block';
+}
+
+function initApp(){
 // ── Data ──────────────────────────────────────────
 const NAME      = "Anny Lucero Flores Valle";
 const ANIV_START = new Date(2016, 6, 30); // 30 julio 2016
@@ -1062,9 +1227,13 @@ function exportTxt(){
 }
 
 // ── Init ──────────────────────────────────────────
-updateProgress();
-renderTabs();
-loadFromFirebase();
+  updateProgress();
+  renderTabs();
+  loadFromFirebase();
+} // end initApp
+
+// Si ya tenía sesión activa, iniciar app directo
+if(checkSession()) initApp();
 </script>
 </body>
 </html>
