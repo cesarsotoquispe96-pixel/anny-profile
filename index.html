@@ -716,9 +716,9 @@
 
 </div><!-- end appContent -->
 
-<script type="module">
-// ── Contraseña ────────────────────────────────────
-const PASSWORD = "300716AyC";
+<!-- Script de contraseña (NO module) -->
+<script>
+const PASSWORD = "AyC300716syf";
 const SESSION_KEY = "anny_unlocked";
 
 function checkSession(){
@@ -729,7 +729,7 @@ function unlock(){
   sessionStorage.setItem(SESSION_KEY, "true");
   document.getElementById('lockScreen').style.display = 'none';
   document.getElementById('appContent').style.display = 'block';
-  initApp();
+  if(typeof window.initApp === 'function') window.initApp();
 }
 
 function tryPassword(){
@@ -751,14 +751,18 @@ document.getElementById('lockInput').addEventListener('keydown', e => {
   if(e.key === 'Enter') tryPassword();
 });
 
-// Si ya estaba autenticado en esta sesión, entrar directo
+// Si ya tenía sesión activa, entrar directo
 if(checkSession()){
   document.getElementById('lockScreen').style.display = 'none';
   document.getElementById('appContent').style.display = 'block';
+  // initApp se llamará cuando el módulo cargue
+  window._sessionActive = true;
 }
+</script>
 
-function initApp(){
-// ── Data ──────────────────────────────────────────
+<script type="module">
+// ── initApp se llama desde el script de contraseña ──
+window.initApp = async function(){
 const NAME      = "Anny Lucero Flores Valle";
 const ANIV_START = new Date(2016, 6, 30); // 30 julio 2016
 const STORAGE_KEY = "anny_profile_v2";
@@ -1230,10 +1234,11 @@ function exportTxt(){
   updateProgress();
   renderTabs();
   loadFromFirebase();
+
 } // end initApp
 
-// Si ya tenía sesión activa, iniciar app directo
-if(checkSession()) initApp();
+// Si ya tenía sesión activa al cargar el módulo, iniciar app
+if(window._sessionActive) initApp();
 </script>
 </body>
 </html>
