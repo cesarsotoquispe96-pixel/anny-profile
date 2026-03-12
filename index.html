@@ -996,19 +996,33 @@ const DOC_REF = doc(db, "profiles", "anny");
 let data = {};
 let saveTimer = null;
 
+// Cargar datos locales inmediatamente como respaldo
+try { data = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'); } catch(e){}
+
 async function loadFromFirebase(){
-  try {
-    showToast('☁️ Cargando datos...');
-    const snap = await getDoc(DOC_REF);
-    if(snap.exists()) data = snap.data();
-    showToast('✅ Datos cargados 💕');
-  } catch(e){
-    showToast('⚠️ Sin conexión, datos locales');
-    try { data = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'); } catch(e2){}
-  }
+  // Primero renderizar con datos locales para no quedarse cargando
   updateProgress();
   renderTabs();
   renderCards();
+
+  // Luego intentar Firebase con timeout de 5 segundos
+  try {
+    const timeoutPromise = new Promise((_,reject) => setTimeout(()=>reject(new Error('timeout')), 5000));
+    const fetchPromise   = getDoc(DOC_REF);
+    const snap = await Promise.race([fetchPromise, timeoutPromise]);
+    if(snap.exists()){
+      data = snap.data();
+      // Guardar copia local
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e){}
+      showToast('☁️ Datos sincronizados 💕');
+      updateProgress();
+      renderTabs();
+      renderCards();
+    }
+  } catch(e){
+    // Firebase falló o tardó mucho — usar datos locales (ya renderizados arriba)
+    console.warn('Firebase no disponible, usando datos locales');
+  }
 }
 
 async function save(){
