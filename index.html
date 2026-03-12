@@ -6,1065 +6,480 @@
 <title>💕 Anny Lucero Flores Valle</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --rose:    #d4607a;
-    --rose-lt: #f7d6de;
-    --blush:   #fef0f3;
-    --deep:    #1e0f14;
-    --cream:   #fdf8f9;
-    --gold:    #c08a5e;
-    --soft:    #ead4da;
-    --text:    #3d1f2a;
-    --muted:   #9c717e;
-    --card-bg: #ffffff;
-  }
-
+  :root { --rose:#d4607a; --rose-lt:#f7d6de; --blush:#fef0f3; --deep:#1e0f14; --cream:#fdf8f9; --gold:#c08a5e; --soft:#ead4da; --text:#3d1f2a; --muted:#9c717e; }
   * { margin:0; padding:0; box-sizing:border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Jost', sans-serif;
-    background: var(--cream);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* ── Floating petals background ── */
-  .petals {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-  }
-  .petal {
-    position: absolute;
-    font-size: 1.1rem;
-    opacity: 0.18;
-    animation: floatPetal linear infinite;
-  }
-  @keyframes floatPetal {
-    0%   { transform: translateY(-40px) rotate(0deg);   opacity: 0; }
-    10%  { opacity: 0.18; }
-    90%  { opacity: 0.12; }
-    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-  }
-
-  /* ── Header ── */
-  header {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 52px 20px 36px;
-    background: linear-gradient(180deg, #fce8ed 0%, transparent 100%);
-    border-bottom: 1px solid var(--rose-lt);
-  }
-
-  .header-hearts {
-    display: flex;
-    justify-content: center;
-    gap: 6px;
-    margin-bottom: 16px;
-  }
-  .header-hearts span {
-    font-size: 1rem;
-    animation: pulse 1.8s ease-in-out infinite;
-  }
-  .header-hearts span:nth-child(2) { animation-delay: .3s; }
-  .header-hearts span:nth-child(3) { animation-delay: .6s; }
-
-  @keyframes pulse {
-    0%,100% { transform: scale(1);    opacity:.7; }
-    50%      { transform: scale(1.25); opacity:1;  }
-  }
-
-  header h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 6vw, 3.2rem);
-    font-weight: 600;
-    color: var(--deep);
-    line-height: 1.15;
-    letter-spacing: -.01em;
-  }
-  header h1 em {
-    font-style: italic;
-    color: var(--rose);
-  }
-  header .subtitle {
-    margin-top: 8px;
-    font-size: .85rem;
-    color: var(--muted);
-    font-weight: 300;
-    letter-spacing: .04em;
-  }
-
-  /* ── Progress ── */
-  .progress-wrap {
-    position: relative;
-    z-index: 2;
-    max-width: 700px;
-    margin: 28px auto 0;
-    padding: 0 22px;
-  }
-  .progress-meta {
-    display: flex;
-    justify-content: space-between;
-    font-size: .75rem;
-    color: var(--muted);
-    margin-bottom: 7px;
-    font-weight: 500;
-    letter-spacing: .05em;
-    text-transform: uppercase;
-  }
-  .progress-track {
-    height: 7px;
-    background: var(--rose-lt);
-    border-radius: 99px;
-    overflow: hidden;
-  }
-  .progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, var(--rose), var(--gold));
-    border-radius: 99px;
-    transition: width .6s cubic-bezier(.4,0,.2,1);
-    min-width: 0;
-  }
-
-  /* ── Tabs ── */
-  .tabs-outer {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: var(--cream);
-    border-bottom: 1px solid var(--rose-lt);
-    padding: 10px 0 0;
-    box-shadow: 0 2px 16px rgba(212,96,122,.07);
-  }
-  .tabs {
-    display: flex;
-    gap: 6px;
-    overflow-x: auto;
-    padding: 0 20px 10px;
-    max-width: 760px;
-    margin: 0 auto;
-    scrollbar-width: none;
-  }
-  .tabs::-webkit-scrollbar { display:none; }
-
-  .tab {
-    flex-shrink: 0;
-    padding: 7px 16px;
-    border-radius: 99px;
-    border: 1.5px solid var(--soft);
-    background: white;
-    cursor: pointer;
-    font-size: .78rem;
-    font-family: 'Jost', sans-serif;
-    font-weight: 500;
-    color: var(--muted);
-    transition: all .22s;
-    white-space: nowrap;
-    letter-spacing: .02em;
-  }
-  .tab:hover { border-color: var(--rose); color: var(--rose); }
-  .tab.active {
-    background: var(--rose);
-    border-color: var(--rose);
-    color: white;
-    box-shadow: 0 4px 14px rgba(212,96,122,.32);
-  }
-  .tab .tab-count {
-    display: inline-block;
-    background: rgba(255,255,255,.28);
-    border-radius: 99px;
-    padding: 1px 6px;
-    font-size: .67rem;
-    margin-left: 5px;
-  }
-  .tab:not(.active) .tab-count {
-    background: var(--rose-lt);
-    color: var(--rose);
-  }
-
-  /* ── Cards area ── */
-  .cards {
-    position: relative;
-    z-index: 2;
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 28px 20px 80px;
-  }
-
-  .cat-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-  .cat-emoji {
-    width: 44px; height: 44px;
-    background: linear-gradient(135deg, var(--rose-lt), var(--soft));
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.4rem;
-    flex-shrink: 0;
-  }
-  .cat-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.45rem;
-    font-weight: 600;
-    color: var(--deep);
-  }
-  .cat-desc {
-    font-size: .78rem;
-    color: var(--muted);
-    font-weight: 300;
-    margin-top: 1px;
-  }
-
-  /* ── Question card ── */
-  .q-card {
-    background: var(--card-bg);
-    border-radius: 18px;
-    padding: 20px 20px 18px;
-    margin-bottom: 12px;
-    border: 1.5px solid var(--rose-lt);
-    transition: all .25s;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(212,96,122,.05);
-    animation: cardIn .3s ease both;
-  }
-  @keyframes cardIn {
-    from { opacity:0; transform: translateY(14px); }
-    to   { opacity:1; transform: translateY(0); }
-  }
-  .q-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px; height: 100%;
-    background: var(--rose-lt);
-    transition: background .25s;
-    border-radius: 99px 0 0 99px;
-  }
-  .q-card.answered::before { background: var(--rose); }
-  .q-card.answered {
-    border-color: rgba(212,96,122,.2);
-    background: linear-gradient(135deg, #fff, #fff8f9);
-  }
-  .q-card:hover {
-    box-shadow: 0 6px 22px rgba(212,96,122,.12);
-    transform: translateY(-1px);
-  }
-
-  .q-num {
-    font-size: .68rem;
-    font-weight: 600;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--rose);
-    margin-bottom: 5px;
-  }
-  .q-text {
-    font-size: .97rem;
-    color: var(--text);
-    line-height: 1.55;
-    margin-bottom: 14px;
-    font-weight: 400;
-  }
-
-  .answer-wrap { position: relative; }
-  .answer-area {
-    width: 100%;
-    background: var(--blush);
-    border: 1.5px solid transparent;
-    border-radius: 10px;
-    padding: 11px 40px 11px 13px;
-    font-family: 'Jost', sans-serif;
-    font-size: .9rem;
-    color: var(--text);
-    resize: none;
-    min-height: 60px;
-    transition: all .2s;
-    outline: none;
-    line-height: 1.5;
-  }
-  .answer-area:focus {
-    border-color: var(--rose);
-    background: white;
-    box-shadow: 0 0 0 3px rgba(212,96,122,.1);
-  }
-  .answer-area::placeholder { color: #c4a4ae; font-style: italic; }
-
-  .check-icon {
-    position: absolute;
-    right: 12px; top: 12px;
-    font-size: .85rem;
-    opacity: 0;
-    transition: opacity .3s;
-  }
-  .q-card.answered .check-icon { opacity: 1; }
-
-  /* ── Save button ── */
-  .save-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin: 26px auto 0;
-    padding: 14px 48px;
-    background: linear-gradient(135deg, var(--rose), #c04060);
-    color: white;
-    border: none;
-    border-radius: 99px;
-    font-family: 'Jost', sans-serif;
-    font-size: .97rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all .25s;
-    box-shadow: 0 6px 22px rgba(212,96,122,.38);
-    letter-spacing: .04em;
-  }
-  .save-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(212,96,122,.45);
-  }
-  .save-btn:active { transform: translateY(0); }
-
-  /* ── Notes card ── */
-  .notes-card {
-    background: linear-gradient(135deg, #fff8f5, #fff);
-    border: 1.5px dashed var(--gold);
-    border-radius: 18px;
-    padding: 20px;
-    margin-bottom: 12px;
-    box-shadow: 0 2px 10px rgba(192,138,94,.08);
-  }
-  .notes-card .q-num { color: var(--gold); }
-  .notes-card .answer-area { background: #fff8f5; }
-  .notes-card .answer-area:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(192,138,94,.12); }
-
-  /* ── Toast ── */
-  .toast {
-    position: fixed;
-    bottom: 32px;
-    left: 50%;
-    transform: translateX(-50%) translateY(16px);
-    background: var(--deep);
-    color: white;
-    padding: 12px 28px;
-    border-radius: 99px;
-    font-size: .85rem;
-    font-weight: 500;
-    opacity: 0;
-    transition: all .35s cubic-bezier(.4,0,.2,1);
-    z-index: 999;
-    white-space: nowrap;
-    pointer-events: none;
-    letter-spacing: .02em;
-  }
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-
-  /* ── Summary / Profile ── */
-  .profile-hero {
-    background: linear-gradient(135deg, #fce8ed, #fdf4f0);
-    border-radius: 20px;
-    padding: 28px;
-    text-align: center;
-    margin-bottom: 20px;
-    border: 1.5px solid var(--rose-lt);
-  }
-  .profile-avatar {
-    width: 72px; height: 72px;
-    background: linear-gradient(135deg, var(--rose), var(--gold));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    margin: 0 auto 14px;
-    box-shadow: 0 6px 20px rgba(212,96,122,.3);
-  }
-  .profile-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    font-weight: 600;
-    font-style: italic;
-    color: var(--deep);
-  }
-  .profile-stats {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    margin-top: 16px;
-  }
-  .stat {
-    text-align: center;
-  }
-  .stat-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: var(--rose);
-    line-height: 1;
-  }
-  .stat-lbl {
-    font-size: .7rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: .06em;
-    margin-top: 3px;
-  }
-
-  .summary-section {
-    background: white;
-    border-radius: 18px;
-    padding: 20px 22px;
-    box-shadow: 0 2px 12px rgba(212,96,122,.06);
-    margin-bottom: 14px;
-    border: 1.5px solid var(--rose-lt);
-  }
-  .summary-section h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: var(--deep);
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--rose-lt);
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .summary-item {
-    padding: 8px 0;
-    border-bottom: 1px dashed var(--rose-lt);
-  }
-  .summary-item:last-child { border-bottom: none; }
-  .summary-q { font-size: .73rem; color: var(--muted); margin-bottom: 3px; }
-  .summary-a { font-size: .93rem; color: var(--text); font-weight: 500; }
-
-  .empty-state {
-    text-align: center;
-    padding: 48px 20px;
-    color: var(--muted);
-  }
-  .empty-state .empty-icon { font-size: 3rem; margin-bottom: 12px; }
-  .empty-state p { font-size: .92rem; font-style: italic; line-height: 1.6; }
-
-  .export-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin: 8px auto 0;
-    padding: 12px 36px;
-    background: white;
-    color: var(--rose);
-    border: 2px solid var(--rose);
-    border-radius: 99px;
-    font-family: 'Jost', sans-serif;
-    font-size: .9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all .22s;
-    letter-spacing: .03em;
-  }
-  .export-btn:hover { background: var(--rose); color: white; }
-
-  /* ── Date badge ── */
-  .date-badge {
-    position: absolute;
-    top: 16px; right: 16px;
-    font-size: .65rem;
-    color: var(--muted);
-    font-style: italic;
-  }
-  .q-card.answered .date-badge { display: block; }
-
-  /* ── Anniversary badge ── */
-  .aniv-badge {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: linear-gradient(135deg, rgba(212,96,122,.1), rgba(192,138,94,.1));
-    border: 1.5px solid rgba(212,96,122,.25);
-    border-radius: 14px;
-    padding: 12px 18px;
-    margin: 14px auto 0;
-    max-width: 480px;
-    gap: 12px;
-  }
-  .aniv-badge.aniv-today {
-    background: linear-gradient(135deg, rgba(212,96,122,.18), rgba(192,138,94,.18));
-    border-color: var(--rose);
-    animation: glowBadge 2s ease-in-out infinite;
-  }
-  @keyframes glowBadge {
-    0%,100% { box-shadow: 0 0 0 0 rgba(212,96,122,0); }
-    50%      { box-shadow: 0 0 18px 4px rgba(212,96,122,.25); }
-  }
-  .aniv-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-align: left;
-  }
-  .aniv-icon { font-size: 1.6rem; flex-shrink: 0; }
-  .aniv-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--deep);
-  }
-  .aniv-date {
-    font-size: .72rem;
-    color: var(--muted);
-    margin-top: 2px;
-  }
-  .aniv-right { text-align: center; flex-shrink: 0; }
-  .aniv-count {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.7rem;
-    font-weight: 600;
-    color: var(--rose);
-    line-height: 1;
-  }
-  .aniv-count-lbl {
-    font-size: .62rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: .05em;
-    margin-top: 2px;
-  }
-
-  /* ── Profile since ── */
-  .profile-since {
-    font-size: .8rem;
-    color: var(--muted);
-    font-style: italic;
-    margin-top: 4px;
-    margin-bottom: 4px;
-  }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Jost',sans-serif; background:var(--cream); color:var(--text); min-height:100vh; overflow-x:hidden; }
+  .petals { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+  .petal { position:absolute; opacity:.18; animation:floatPetal linear infinite; }
+  @keyframes floatPetal { 0%{transform:translateY(-40px) rotate(0deg);opacity:0;} 10%{opacity:.18;} 90%{opacity:.12;} 100%{transform:translateY(110vh) rotate(360deg);opacity:0;} }
+  header { position:relative; z-index:2; text-align:center; padding:52px 20px 36px; background:linear-gradient(180deg,#fce8ed 0%,transparent 100%); border-bottom:1px solid var(--rose-lt); }
+  .header-hearts { display:flex; justify-content:center; gap:6px; margin-bottom:16px; }
+  .header-hearts span { font-size:1rem; animation:pulse 1.8s ease-in-out infinite; }
+  .header-hearts span:nth-child(2){animation-delay:.3s;} .header-hearts span:nth-child(3){animation-delay:.6s;}
+  @keyframes pulse { 0%,100%{transform:scale(1);opacity:.7;} 50%{transform:scale(1.25);opacity:1;} }
+  header h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,6vw,3.2rem); font-weight:600; color:var(--deep); line-height:1.15; }
+  header h1 em { font-style:italic; color:var(--rose); }
+  header .subtitle { margin-top:8px; font-size:.85rem; color:var(--muted); font-weight:300; }
+  .aniv-badge { display:flex; align-items:center; justify-content:space-between; background:linear-gradient(135deg,rgba(212,96,122,.1),rgba(192,138,94,.1)); border:1.5px solid rgba(212,96,122,.25); border-radius:14px; padding:12px 18px; margin:14px auto 0; max-width:480px; gap:12px; }
+  .aniv-badge.aniv-today { border-color:var(--rose); animation:glowBadge 2s ease-in-out infinite; }
+  @keyframes glowBadge { 0%,100%{box-shadow:0 0 0 0 rgba(212,96,122,0);} 50%{box-shadow:0 0 18px 4px rgba(212,96,122,.25);} }
+  .aniv-left { display:flex; align-items:center; gap:10px; text-align:left; }
+  .aniv-icon { font-size:1.6rem; flex-shrink:0; }
+  .aniv-title { font-family:'Cormorant Garamond',serif; font-size:1rem; font-weight:600; color:var(--deep); }
+  .aniv-date { font-size:.72rem; color:var(--muted); margin-top:2px; }
+  .aniv-right { text-align:center; flex-shrink:0; }
+  .aniv-count { font-family:'Cormorant Garamond',serif; font-size:1.7rem; font-weight:600; color:var(--rose); line-height:1; }
+  .aniv-count-lbl { font-size:.62rem; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-top:2px; }
+  .progress-wrap { position:relative; z-index:2; max-width:700px; margin:28px auto 0; padding:0 22px; }
+  .progress-meta { display:flex; justify-content:space-between; font-size:.75rem; color:var(--muted); margin-bottom:7px; font-weight:500; text-transform:uppercase; }
+  .progress-track { height:7px; background:var(--rose-lt); border-radius:99px; overflow:hidden; }
+  .progress-bar { height:100%; background:linear-gradient(90deg,var(--rose),var(--gold)); border-radius:99px; transition:width .6s; }
+  .tabs-outer { position:sticky; top:0; z-index:10; background:var(--cream); border-bottom:1px solid var(--rose-lt); padding:10px 0 0; box-shadow:0 2px 16px rgba(212,96,122,.07); }
+  .tabs { display:flex; gap:6px; overflow-x:auto; padding:0 20px 10px; max-width:760px; margin:0 auto; scrollbar-width:none; }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab { flex-shrink:0; padding:7px 16px; border-radius:99px; border:1.5px solid var(--soft); background:white; cursor:pointer; font-size:.78rem; font-family:'Jost',sans-serif; font-weight:500; color:var(--muted); transition:all .22s; white-space:nowrap; }
+  .tab:hover { border-color:var(--rose); color:var(--rose); }
+  .tab.active { background:var(--rose); border-color:var(--rose); color:white; box-shadow:0 4px 14px rgba(212,96,122,.32); }
+  .tab .tab-count { display:inline-block; background:rgba(255,255,255,.28); border-radius:99px; padding:1px 6px; font-size:.67rem; margin-left:5px; }
+  .tab:not(.active) .tab-count { background:var(--rose-lt); color:var(--rose); }
+  .cards { position:relative; z-index:2; max-width:700px; margin:0 auto; padding:28px 20px 80px; }
+  .cat-header { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+  .cat-emoji { width:44px; height:44px; background:linear-gradient(135deg,var(--rose-lt),var(--soft)); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; flex-shrink:0; }
+  .cat-title { font-family:'Cormorant Garamond',serif; font-size:1.45rem; font-weight:600; color:var(--deep); }
+  .cat-desc { font-size:.78rem; color:var(--muted); font-weight:300; margin-top:1px; }
+  .q-card { background:white; border-radius:18px; padding:20px; margin-bottom:12px; border:1.5px solid var(--rose-lt); transition:all .25s; position:relative; overflow:hidden; box-shadow:0 2px 10px rgba(212,96,122,.05); animation:cardIn .3s ease both; }
+  @keyframes cardIn { from{opacity:0;transform:translateY(14px);} to{opacity:1;transform:translateY(0);} }
+  .q-card::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--rose-lt); transition:background .25s; }
+  .q-card.answered::before { background:var(--rose); }
+  .q-card.answered { border-color:rgba(212,96,122,.2); background:linear-gradient(135deg,#fff,#fff8f9); }
+  .q-card:hover { box-shadow:0 6px 22px rgba(212,96,122,.12); transform:translateY(-1px); }
+  .q-num { font-size:.68rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--rose); margin-bottom:5px; }
+  .q-text { font-size:.97rem; color:var(--text); line-height:1.55; margin-bottom:14px; }
+  .answer-wrap { position:relative; }
+  .answer-area { width:100%; background:var(--blush); border:1.5px solid transparent; border-radius:10px; padding:11px 40px 11px 13px; font-family:'Jost',sans-serif; font-size:.9rem; color:var(--text); resize:none; min-height:60px; transition:all .2s; outline:none; line-height:1.5; }
+  .answer-area:focus { border-color:var(--rose); background:white; box-shadow:0 0 0 3px rgba(212,96,122,.1); }
+  .answer-area::placeholder { color:#c4a4ae; font-style:italic; }
+  .check-icon { position:absolute; right:12px; top:12px; font-size:.85rem; opacity:0; transition:opacity .3s; }
+  .q-card.answered .check-icon { opacity:1; }
+  .date-badge { font-size:.65rem; color:var(--muted); font-style:italic; margin-top:6px; display:block; }
+  .notes-card { background:linear-gradient(135deg,#fff8f5,#fff); border:1.5px dashed var(--gold); border-radius:18px; padding:20px; margin-bottom:12px; }
+  .notes-card .q-num { color:var(--gold); }
+  .notes-card .answer-area { background:#fff8f5; }
+  .save-btn { display:flex; align-items:center; justify-content:center; gap:8px; margin:26px auto 0; padding:14px 48px; background:linear-gradient(135deg,var(--rose),#c04060); color:white; border:none; border-radius:99px; font-family:'Jost',sans-serif; font-size:.97rem; font-weight:600; cursor:pointer; transition:all .25s; box-shadow:0 6px 22px rgba(212,96,122,.38); }
+  .save-btn:hover { transform:translateY(-2px); }
+  .toast { position:fixed; bottom:32px; left:50%; transform:translateX(-50%) translateY(16px); background:var(--deep); color:white; padding:12px 28px; border-radius:99px; font-size:.85rem; font-weight:500; opacity:0; transition:all .35s; z-index:9998; white-space:nowrap; pointer-events:none; }
+  .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+  .profile-hero { background:linear-gradient(135deg,#fce8ed,#fdf4f0); border-radius:20px; padding:28px; text-align:center; margin-bottom:20px; border:1.5px solid var(--rose-lt); }
+  .profile-avatar { width:72px; height:72px; background:linear-gradient(135deg,var(--rose),var(--gold)); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2rem; margin:0 auto 14px; box-shadow:0 6px 20px rgba(212,96,122,.3); }
+  .profile-name { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:600; font-style:italic; color:var(--deep); }
+  .profile-since { font-size:.8rem; color:var(--muted); font-style:italic; margin-top:4px; }
+  .profile-stats { display:flex; justify-content:center; gap:24px; margin-top:16px; }
+  .stat { text-align:center; }
+  .stat-num { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:600; color:var(--rose); line-height:1; }
+  .stat-lbl { font-size:.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-top:3px; }
+  .summary-section { background:white; border-radius:18px; padding:20px 22px; box-shadow:0 2px 12px rgba(212,96,122,.06); margin-bottom:14px; border:1.5px solid var(--rose-lt); }
+  .summary-section h3 { font-family:'Cormorant Garamond',serif; font-size:1.15rem; font-weight:600; color:var(--deep); padding-bottom:10px; border-bottom:1px solid var(--rose-lt); margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+  .summary-item { padding:8px 0; border-bottom:1px dashed var(--rose-lt); }
+  .summary-item:last-child { border-bottom:none; }
+  .summary-q { font-size:.73rem; color:var(--muted); margin-bottom:3px; }
+  .summary-a { font-size:.93rem; color:var(--text); font-weight:500; }
+  .empty-state { text-align:center; padding:48px 20px; color:var(--muted); }
+  .empty-state .empty-icon { font-size:3rem; margin-bottom:12px; }
+  .export-btn { display:flex; align-items:center; justify-content:center; gap:8px; margin:8px auto 0; padding:12px 36px; background:white; color:var(--rose); border:2px solid var(--rose); border-radius:99px; font-family:'Jost',sans-serif; font-size:.9rem; font-weight:600; cursor:pointer; transition:all .22s; }
+  .export-btn:hover { background:var(--rose); color:white; }
+  #lockScreen { position:fixed; inset:0; z-index:9999; background:linear-gradient(135deg,#fce8ed 0%,#fdf4f0 100%); display:flex; align-items:center; justify-content:center; padding:20px; }
+  .lock-box { background:white; border-radius:24px; padding:44px 36px; text-align:center; max-width:360px; width:100%; box-shadow:0 20px 60px rgba(212,96,122,.15); border:1.5px solid var(--rose-lt); }
+  .lock-icon { font-size:3rem; margin-bottom:16px; display:block; animation:pulse 2s ease-in-out infinite; }
+  .lock-title { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:600; color:var(--deep); margin-bottom:4px; }
+  .lock-title em { color:var(--rose); font-style:italic; }
+  .lock-subtitle { font-size:.82rem; color:var(--muted); margin-bottom:28px; font-weight:300; }
+  .lock-input { width:100%; background:var(--blush); border:1.5px solid var(--soft); border-radius:12px; padding:14px 18px; font-family:'Jost',sans-serif; font-size:1rem; color:var(--text); text-align:center; letter-spacing:.12em; outline:none; transition:all .2s; margin-bottom:14px; }
+  .lock-input:focus { border-color:var(--rose); background:white; box-shadow:0 0 0 3px rgba(212,96,122,.1); }
+  .lock-btn { width:100%; padding:14px; background:linear-gradient(135deg,var(--rose),#c04060); color:white; border:none; border-radius:12px; font-family:'Jost',sans-serif; font-size:1rem; font-weight:600; cursor:pointer; transition:all .22s; box-shadow:0 6px 20px rgba(212,96,122,.35); }
+  .lock-btn:hover { transform:translateY(-2px); }
+  .lock-error { color:var(--rose); font-size:.82rem; margin-top:10px; min-height:20px; font-weight:500; }
+  @keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-6px);} 75%{transform:translateX(6px);} }
+  .lock-hint { font-size:.72rem; color:var(--muted); margin-top:16px; font-style:italic; }
+  #appContent { display:none; }
+  .sync-dot { position:fixed; top:14px; right:16px; font-size:.7rem; background:white; border:1px solid var(--rose-lt); border-radius:99px; padding:4px 12px; color:var(--muted); z-index:100; box-shadow:0 2px 8px rgba(212,96,122,.08); }
 </style>
 </head>
 <body>
 
-<!-- Floating petals -->
-<div class="petals" id="petals"></div>
-
-<header>
-  <div class="header-hearts">
-    <span>🌸</span><span>💕</span><span>🌸</span>
-  </div>
-  <h1>Conociendo a<br><em>Anny Lucero Flores Valle</em></h1>
-  <p class="subtitle">Tu diario de amor · Responde poco a poco, sin apuro 🌷</p>
-  <div id="anniversaryBadge"></div>
-</header>
-
-<!-- Progress -->
-<div class="progress-wrap">
-  <div class="progress-meta">
-    <span id="progressText">Cargando...</span>
-    <span id="progressPct">0%</span>
-  </div>
-  <div class="progress-track">
-    <div class="progress-bar" id="progressBar" style="width:0%"></div>
+<!-- PANTALLA DE CONTRASEÑA -->
+<div id="lockScreen">
+  <div class="lock-box">
+    <span class="lock-icon">🔐</span>
+    <div class="lock-title">Diario de <em>Amor</em></div>
+    <div class="lock-subtitle">Ingresa la contraseña para continuar 🌸</div>
+    <input class="lock-input" type="password" id="lockInput" placeholder="••••••••••••" maxlength="30" />
+    <button class="lock-btn" id="lockBtn">Entrar 💕</button>
+    <div class="lock-error" id="lockError"></div>
+    <div class="lock-hint">Solo tú conoces esta contraseña 🌷</div>
   </div>
 </div>
 
-<!-- Tabs -->
-<div class="tabs-outer">
-  <div class="tabs" id="tabsContainer"></div>
+<!-- CONTENIDO DE LA APP -->
+<div id="appContent">
+  <div class="sync-dot" id="syncDot">☁️ Conectando...</div>
+  <div class="petals" id="petals"></div>
+  <header>
+    <div class="header-hearts"><span>🌸</span><span>💕</span><span>🌸</span></div>
+    <h1>Conociendo a<br><em>Anny Lucero Flores Valle</em></h1>
+    <p class="subtitle">Tu diario de amor · Responde poco a poco, sin apuro 🌷</p>
+    <div id="anniversaryBadge"></div>
+  </header>
+  <div class="progress-wrap">
+    <div class="progress-meta">
+      <span id="progressText">0 respuestas guardadas</span>
+      <span id="progressPct">0%</span>
+    </div>
+    <div class="progress-track"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+  </div>
+  <div class="tabs-outer"><div class="tabs" id="tabsContainer"></div></div>
+  <div class="cards" id="cardsContainer"></div>
+  <div class="toast" id="toast">✓ Guardado</div>
 </div>
 
-<!-- Cards -->
-<div class="cards" id="cardsContainer"></div>
+<!-- Firebase SDK (compat - funciona sin módulos) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-<!-- Toast -->
-<div class="toast" id="toast">✓ Guardado</div>
+<script>
+// ═══════════════════════════════════════
+// CONTRASEÑA — cambia este valor cuando quieras
+// ═══════════════════════════════════════
+var PASSWORD    = "AyC300716syf";
+var SESSION_KEY = "anny_session_v1";
 
-<script type="module">
-// ── Data ──────────────────────────────────────────
-const NAME      = "Anny Lucero Flores Valle";
-const ANIV_START = new Date(2016, 6, 30); // 30 julio 2016
-const STORAGE_KEY = "anny_profile_v2";
+function checkSession(){ return sessionStorage.getItem(SESSION_KEY)==="yes"; }
 
-// ── Anniversary badge ─────────────────────────────
-(function showAnniversary(){
-  const today = new Date();
-  const diffMs = today - ANIV_START;
-  const totalDays = Math.floor(diffMs / (1000*60*60*24));
-  const years  = Math.floor(totalDays / 365);
-  const months = Math.floor((totalDays % 365) / 30);
-
-  // Days until next 30th
-  const day = today.getDate();
-  let nextThirty;
-  if(day < 30){
-    nextThirty = new Date(today.getFullYear(), today.getMonth(), 30);
+function tryPass(){
+  var v = document.getElementById('lockInput').value;
+  if(v === PASSWORD){
+    sessionStorage.setItem(SESSION_KEY,"yes");
+    document.getElementById('lockScreen').style.display='none';
+    document.getElementById('appContent').style.display='block';
+    startApp();
   } else {
-    nextThirty = new Date(today.getFullYear(), today.getMonth()+1, 30);
+    var err = document.getElementById('lockError');
+    err.textContent = '❌ Contraseña incorrecta, intenta de nuevo';
+    err.style.animation = 'none';
+    setTimeout(function(){ err.style.animation='shake .3s ease'; }, 10);
+    document.getElementById('lockInput').value = '';
+    document.getElementById('lockInput').focus();
   }
-  const daysUntil = Math.ceil((nextThirty - today) / (1000*60*60*24));
-  const isToday   = day === 30;
+}
 
-  const badge = document.getElementById('anniversaryBadge');
-  if(!badge) return;
+document.getElementById('lockBtn').onclick = tryPass;
+document.getElementById('lockInput').onkeydown = function(e){ if(e.key==='Enter') tryPass(); };
 
-  badge.innerHTML = `
-    <div class="aniv-badge ${isToday?'aniv-today':''}">
-      <div class="aniv-left">
-        <span class="aniv-icon">${isToday?'🎉':'💑'}</span>
-        <div>
-          <div class="aniv-title">${isToday ? '¡Feliz Aniversario! 🎊' : 'Aniversario'}</div>
-          <div class="aniv-date">30 de julio del 2016 · ${years} años y ${months} mes${months!==1?'es':''} juntos</div>
-        </div>
-      </div>
-      <div class="aniv-right">
-        <div class="aniv-count">${isToday ? '🥂' : daysUntil}</div>
-        <div class="aniv-count-lbl">${isToday ? '¡Hoy!' : 'días para el día 30'}</div>
-      </div>
-    </div>`;
-})();
+// Si ya tenía sesión activa, mostrar app directo
+if(checkSession()){
+  document.getElementById('lockScreen').style.display='none';
+  document.getElementById('appContent').style.display='block';
+}
 
-const CATS = [
-  {
-    id:"colores", emoji:"🎨", label:"Colores y Estilo",
-    desc:"Gustos de moda, colores y accesorios",
-    questions:[
-      "¿Cuál es tu color favorito?",
-      "¿Cuál es el color que menos te gusta?",
-      "¿Cómo describirías tu estilo personal para vestirte?",
-      "¿Prefieres accesorios de oro, plata o no usas mucho?",
-      "¿Usas más perfumes dulces, florales o frescos?",
-      "¿Tienes alguna marca de ropa o accesorio que te encante?",
-      "¿Prefieres zapatos cómodos o con estilo aunque no sean tan cómodos?",
-      "¿Usas más bolsos, mochilas o carteras pequeñas?",
-      "¿Hay alguna marca de maquillaje o skincare que uses siempre?",
-    ]
-  },
-  {
-    id:"comida", emoji:"🍕", label:"Comida y Bebidas",
-    desc:"Sus sabores favoritos y lo que no le gusta",
-    questions:[
-      "¿Cuál es tu comida favorita de toda la vida?",
-      "¿Qué comida definitivamente no soportas?",
-      "¿Eres más de comida salada o dulce?",
-      "¿Cuál es tu postre favorito?",
-      "¿Qué prefieres: cocinar en casa o salir a comer?",
-      "¿Tienes algún restaurante o lugar favorito para comer?",
-      "¿Tomas café o té? ¿Cómo te gusta?",
-      "¿Tienes alguna alergia o algo que no puedas comer?",
-      "¿Pizza o hamburguesa?",
-      "¿Chocolate oscuro o con leche?",
-      "¿Helado o pastel?",
-      "¿Desayuno abundante o ligero?",
-    ]
-  },
-  {
-    id:"regalos", emoji:"🎁", label:"Regalos y Detalles",
-    desc:"Todo lo que necesitas saber para sorprenderla",
-    questions:[
-      "¿Cuáles son tus flores favoritas?",
-      "¿Prefieres regalos sorpresa o que te pregunten qué quieres?",
-      "¿Qué tipo de regalo te hace más feliz: algo útil, sentimental o lujoso?",
-      "¿Prefieres experiencias (salidas, viajes) o regalos físicos?",
-      "¿Hay algo que siempre hayas querido pero nunca te hayas comprado?",
-      "¿Te gustan los detalles pequeños del día a día o algo grande de vez en cuando?",
-      "¿Hay algo que hayas visto y dicho 'algún día me lo compro'?",
-      "¿Cuál ha sido el regalo más especial que has recibido y por qué?",
-      "¿Hay algo que siempre se te rompe o se te acaba y necesitas reponer?",
-      "¿Qué olor te encanta? (velas, perfumes, ambientadores)",
-      "¿Te gustan las joyas? ¿Qué tipo usas más?",
-      "¿Qué cosa nunca te gustaría que te regalen?",
-      "¿Te gustan las cartas o mensajes escritos a mano?",
-    ]
-  },
-  {
-    id:"entretenimiento", emoji:"🎬", label:"Entretenimiento",
-    desc:"Series, música, hobbies y más",
-    questions:[
-      "¿Qué haces cuando quieres relajarte?",
-      "¿Tienes alguna serie o película favorita?",
-      "¿Qué género de películas o series te gusta más?",
-      "¿Escuchas música? ¿Qué tipo o cuál es tu artista favorito?",
-      "¿Lees libros? ¿Qué tipo?",
-      "¿Tienes algún hobbie o algo que te apasione hacer?",
-      "¿Prefieres salir a hacer planes o quedarte en casa?",
-      "¿Te gustan los deportes o el ejercicio? ¿Cuál?",
-      "¿Cine en casa o cine en sala?",
-      "¿Fiesta o cena tranquila?",
-      "¿Con quién prefieres salir: pocas personas o grupo grande?",
-      "¿Coleccionas algo? (libros, figuras, velas, etc.)",
-      "¿Cuál es tu canción favorita o la que más te llega al corazón?",
-    ]
-  },
-  {
-    id:"rutinas", emoji:"🌅", label:"Rutinas y Hábitos",
-    desc:"Su día a día y costumbres",
-    questions:[
-      "¿Eres más de mañanas o de noches?",
-      "¿Cómo es tu rutina perfecta de un día libre?",
-      "¿Duermes con frío o con calor?",
-      "¿Prefieres ducha en la mañana o en la noche?",
-      "¿Qué es lo primero que haces cuando te despiertas?",
-      "¿Tienes alguna tienda favorita donde siempre encuentras algo?",
-      "¿Prefieres ropa cómoda o más arreglada en el día a día?",
-    ]
-  },
-  {
-    id:"celebraciones", emoji:"🎂", label:"Fechas Especiales",
-    desc:"Cumpleaños y momentos que celebra",
-    questions:[
-      "¿Cómo te gusta celebrar tu cumpleaños?",
-      "¿Prefieres algo íntimo o con muchas personas?",
-      "¿Eres sentimental con las fechas especiales?",
-      "¿Guardas regalos, cartas o cosas con valor sentimental?",
-    ]
-  },
-  {
-    id:"personalidad", emoji:"🧠", label:"Personalidad",
-    desc:"Cómo es ella por dentro",
-    questions:[
-      "¿Qué te estresa más en la vida?",
-      "¿Cómo reaccionas cuando estás enojada o molesta?",
-      "¿Qué te hace reír a carcajadas?",
-      "¿Eres más de hablar los problemas o necesitas tiempo sola primero?",
-      "¿Qué cualidad tuya es la que más te gusta de ti misma?",
-      "¿Hay algo que te dé miedo o inseguridad?",
-      "¿Qué cosa pequeña del día a día te pone de buen humor?",
-      "¿Hay algo que te moleste mucho aunque parezca algo tonto?",
-    ]
-  },
-  {
-    id:"animales", emoji:"🐾", label:"Naturaleza y Animales",
-    desc:"Lo que la conecta con el mundo natural",
-    questions:[
-      "¿Tienes o quisieras tener mascotas? ¿Cuál?",
-      "¿Eres más de perros o gatos?",
-      "¿Te gusta la naturaleza, los parques, el campo?",
-      "¿Te gustan las plantas en casa?",
-      "¿Prefieres el mar, la montaña o la ciudad?",
-      "¿Playa o montaña?",
-    ]
-  },
-  {
-    id:"amor", emoji:"💌", label:"Amor y Relación",
-    desc:"Cómo ama y qué la hace sentir especial",
-    questions:[
-      "¿Cómo sabes que alguien realmente te quiere?",
-      "¿Qué detalle romántico te parece el más especial?",
-      "¿Prefieres que te sorprendan o planear las cosas juntos?",
-      "¿Cuál es tu recuerdo favorito de algo que alguien haya hecho por ti?",
-      "¿Cómo te gusta que te demuestren cariño?",
-      "¿Qué es lo que más valoras en una pareja?",
-    ]
-  },
-  {
-    id:"suenos", emoji:"🌙", label:"Sueños y Futuro",
-    desc:"Sus metas, viajes y lo que sueña",
-    questions:[
-      "¿A qué lugar del mundo te encantaría viajar?",
-      "¿Tienes algún sueño o meta que quieras cumplir?",
-      "¿Qué es algo que nunca has hecho pero te mueres por intentar?",
-      "¿Cómo te imaginas tu vida ideal en 5 años?",
-      "¿Hay algo que quieras aprender o estudiar?",
-      "¿Tienes algún lugar donde siempre quisiste vivir?",
-      "¿Qué es lo que más valoras en tu vida ahora mismo?",
-    ]
-  },
-  {
-    id:"notas", emoji:"📝", label:"Notas Libres",
-    desc:"Cosas que diga sin ser de una pregunta específica",
-    questions:[
-      "Algo que dijo hoy y quiero recordar...",
-      "Una cosa que le gusta que descubrí sin preguntarle...",
-      "Algo gracioso o especial que pasó entre nosotros...",
-      "Una comida, lugar o cosa que mencionó que le gusta...",
-      "Algo que le incomoda o no le gusta y lo noté...",
-      "Una meta o sueño que mencionó de pasada...",
-      "Otra nota libre #1",
-      "Otra nota libre #2",
-      "Otra nota libre #3",
-    ]
-  },
-  {
-    id:"resumen", emoji:"💗", label:"Ver Perfil",
-    desc:"",
-    questions:[]
-  }
-];
-
-const TOTAL_Q = CATS.filter(c=>c.id!=='resumen').reduce((s,c)=>s+c.questions.length,0);
-
-// ── Firebase ──────────────────────────────────────
-import { initializeApp }                        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc }    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig = {
+// ═══════════════════════════════════════
+// FIREBASE
+// ═══════════════════════════════════════
+firebase.initializeApp({
   apiKey:            "AIzaSyBzoev_Lu1PkOUK38tvA1rueMV4nTN5AQI",
   authDomain:        "anny-profile.firebaseapp.com",
   projectId:         "anny-profile",
   storageBucket:     "anny-profile.firebasestorage.app",
   messagingSenderId: "366058525340",
   appId:             "1:366058525340:web:0650b465520d3ab2e05359"
-};
+});
+var db     = firebase.firestore();
+var docRef = db.collection("profiles").doc("anny");
 
-const app = initializeApp(firebaseConfig);
-const db  = getFirestore(app);
-const DOC_REF = doc(db, "profiles", "anny");
+// ═══════════════════════════════════════
+// DATOS
+// ═══════════════════════════════════════
+var NAME        = "Anny Lucero Flores Valle";
+var ANIV_START  = new Date(2016, 6, 30);
+var STORAGE_KEY = "anny_data_v3";
+var data        = {};
+var saveTimer   = null;
+var fbOk        = false;
 
-// ── Storage ───────────────────────────────────────
-let data = {};
-let saveTimer = null;
+// Cargar local inmediatamente
+try{ data = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'); }catch(e){}
 
-async function loadFromFirebase(){
-  try {
-    showToast('☁️ Cargando datos...');
-    const snap = await getDoc(DOC_REF);
-    if(snap.exists()) data = snap.data();
-    showToast('✅ Datos cargados 💕');
-  } catch(e){
-    showToast('⚠️ Sin conexión, datos locales');
-    try { data = JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}'); } catch(e2){}
-  }
+var CATS = [
+  {id:"colores",emoji:"🎨",label:"Colores y Estilo",desc:"Gustos de moda, colores y accesorios",questions:["¿Cuál es tu color favorito?","¿Cuál es el color que menos te gusta?","¿Cómo describirías tu estilo personal para vestirte?","¿Prefieres accesorios de oro, plata o no usas mucho?","¿Usas más perfumes dulces, florales o frescos?","¿Tienes alguna marca de ropa o accesorio que te encante?","¿Prefieres zapatos cómodos o con estilo aunque no sean tan cómodos?","¿Usas más bolsos, mochilas o carteras pequeñas?","¿Hay alguna marca de maquillaje o skincare que uses siempre?"]},
+  {id:"comida",emoji:"🍕",label:"Comida y Bebidas",desc:"Sus sabores favoritos y lo que no le gusta",questions:["¿Cuál es tu comida favorita de toda la vida?","¿Qué comida definitivamente no soportas?","¿Eres más de comida salada o dulce?","¿Cuál es tu postre favorito?","¿Qué prefieres: cocinar en casa o salir a comer?","¿Tienes algún restaurante o lugar favorito para comer?","¿Tomas café o té? ¿Cómo te gusta?","¿Tienes alguna alergia o algo que no puedas comer?","¿Pizza o hamburguesa?","¿Chocolate oscuro o con leche?","¿Helado o pastel?","¿Desayuno abundante o ligero?"]},
+  {id:"regalos",emoji:"🎁",label:"Regalos y Detalles",desc:"Todo lo que necesitas saber para sorprenderla",questions:["¿Cuáles son tus flores favoritas?","¿Prefieres regalos sorpresa o que te pregunten qué quieres?","¿Qué tipo de regalo te hace más feliz: algo útil, sentimental o lujoso?","¿Prefieres experiencias (salidas, viajes) o regalos físicos?","¿Hay algo que siempre hayas querido pero nunca te hayas comprado?","¿Te gustan los detalles pequeños del día a día o algo grande de vez en cuando?","¿Hay algo que hayas visto y dicho 'algún día me lo compro'?","¿Cuál ha sido el regalo más especial que has recibido y por qué?","¿Hay algo que siempre se te rompe o se te acaba y necesitas reponer?","¿Qué olor te encanta? (velas, perfumes, ambientadores)","¿Te gustan las joyas? ¿Qué tipo usas más?","¿Qué cosa nunca te gustaría que te regalen?","¿Te gustan las cartas o mensajes escritos a mano?"]},
+  {id:"entretenimiento",emoji:"🎬",label:"Entretenimiento",desc:"Series, música, hobbies y más",questions:["¿Qué haces cuando quieres relajarte?","¿Tienes alguna serie o película favorita?","¿Qué género de películas o series te gusta más?","¿Escuchas música? ¿Qué tipo o cuál es tu artista favorito?","¿Lees libros? ¿Qué tipo?","¿Tienes algún hobbie o algo que te apasione hacer?","¿Prefieres salir a hacer planes o quedarte en casa?","¿Te gustan los deportes o el ejercicio? ¿Cuál?","¿Cine en casa o cine en sala?","¿Fiesta o cena tranquila?","¿Con quién prefieres salir: pocas personas o grupo grande?","¿Coleccionas algo? (libros, figuras, velas, etc.)","¿Cuál es tu canción favorita o la que más te llega al corazón?"]},
+  {id:"rutinas",emoji:"🌅",label:"Rutinas y Hábitos",desc:"Su día a día y costumbres",questions:["¿Eres más de mañanas o de noches?","¿Cómo es tu rutina perfecta de un día libre?","¿Duermes con frío o con calor?","¿Prefieres ducha en la mañana o en la noche?","¿Qué es lo primero que haces cuando te despiertas?","¿Tienes alguna tienda favorita donde siempre encuentras algo?","¿Prefieres ropa cómoda o más arreglada en el día a día?"]},
+  {id:"celebraciones",emoji:"🎂",label:"Fechas Especiales",desc:"Cumpleaños y momentos que celebra",questions:["¿Cómo te gusta celebrar tu cumpleaños?","¿Prefieres algo íntimo o con muchas personas?","¿Eres sentimental con las fechas especiales?","¿Guardas regalos, cartas o cosas con valor sentimental?"]},
+  {id:"personalidad",emoji:"🧠",label:"Personalidad",desc:"Cómo es ella por dentro",questions:["¿Qué te estresa más en la vida?","¿Cómo reaccionas cuando estás enojada o molesta?","¿Qué te hace reír a carcajadas?","¿Eres más de hablar los problemas o necesitas tiempo sola primero?","¿Qué cualidad tuya es la que más te gusta de ti misma?","¿Hay algo que te dé miedo o inseguridad?","¿Qué cosa pequeña del día a día te pone de buen humor?","¿Hay algo que te moleste mucho aunque parezca algo tonto?"]},
+  {id:"animales",emoji:"🐾",label:"Naturaleza y Animales",desc:"Lo que la conecta con el mundo natural",questions:["¿Tienes o quisieras tener mascotas? ¿Cuál?","¿Eres más de perros o gatos?","¿Te gusta la naturaleza, los parques, el campo?","¿Te gustan las plantas en casa?","¿Prefieres el mar, la montaña o la ciudad?","¿Playa o montaña?"]},
+  {id:"amor",emoji:"💌",label:"Amor y Relación",desc:"Cómo ama y qué la hace sentir especial",questions:["¿Cómo sabes que alguien realmente te quiere?","¿Qué detalle romántico te parece el más especial?","¿Prefieres que te sorprendan o planear las cosas juntos?","¿Cuál es tu recuerdo favorito de algo que alguien haya hecho por ti?","¿Cómo te gusta que te demuestren cariño?","¿Qué es lo que más valoras en una pareja?"]},
+  {id:"suenos",emoji:"🌙",label:"Sueños y Futuro",desc:"Sus metas, viajes y lo que sueña",questions:["¿A qué lugar del mundo te encantaría viajar?","¿Tienes algún sueño o meta que quieras cumplir?","¿Qué es algo que nunca has hecho pero te mueres por intentar?","¿Cómo te imaginas tu vida ideal en 5 años?","¿Hay algo que quieras aprender o estudiar?","¿Tienes algún lugar donde siempre quisiste vivir?","¿Qué es lo que más valoras en tu vida ahora mismo?"]},
+  {id:"notas",emoji:"📝",label:"Notas Libres",desc:"Cosas que diga sin ser de una pregunta específica",questions:["Algo que dijo hoy y quiero recordar...","Una cosa que le gusta que descubrí sin preguntarle...","Algo gracioso o especial que pasó entre nosotros...","Una comida, lugar o cosa que mencionó que le gusta...","Algo que le incomoda o no le gusta y lo noté...","Una meta o sueño que mencionó de pasada...","Nota libre #1","Nota libre #2","Nota libre #3"]},
+  {id:"resumen",emoji:"💗",label:"Ver Perfil",desc:"",questions:[]}
+];
+
+var TOTAL_Q = CATS.filter(function(c){return c.id!=='resumen';}).reduce(function(s,c){return s+c.questions.length;},0);
+var current = CATS[0].id;
+
+// ═══════════════════════════════════════
+// GUARDAR
+// ═══════════════════════════════════════
+function saveLocal(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }catch(e){}
+}
+
+function saveFirebase(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(function(){
+    docRef.set(data)
+      .then(function(){
+        setSyncDot('✅ Guardado en nube', true);
+      })
+      .catch(function(){
+        setSyncDot('💾 Solo local', false);
+      });
+  }, 1000);
+}
+
+function saveAll(){
+  saveLocal();
+  saveFirebase();
+}
+
+function setSyncDot(msg, ok){
+  var el = document.getElementById('syncDot');
+  if(el){ el.textContent = msg; el.style.color = ok ? '#d4607a' : '#9c717e'; }
+}
+
+// ═══════════════════════════════════════
+// INICIAR APP
+// ═══════════════════════════════════════
+function startApp(){
+  spawnPetals();
+  showAnniversary();
   updateProgress();
   renderTabs();
   renderCards();
+  connectFirebase();
 }
 
-async function save(){
-  // Always save locally as backup
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e){}
-  // Debounce Firebase save (wait 800ms after last keystroke)
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(async ()=>{
-    try {
-      await setDoc(DOC_REF, data);
-    } catch(e){
-      console.warn('Firebase save failed, data kept locally');
-    }
-  }, 800);
-}
-
-// ── State ─────────────────────────────────────────
-let current = CATS[0].id;
-
-// ── Petals ────────────────────────────────────────
-(function spawnPetals(){
-  const container = document.getElementById('petals');
-  const emojis = ['🌸','🌺','🌷','💮','🌼'];
-  for(let i=0;i<18;i++){
-    const el = document.createElement('span');
-    el.className = 'petal';
-    el.textContent = emojis[Math.floor(Math.random()*emojis.length)];
-    el.style.left = Math.random()*100+'vw';
-    el.style.top = Math.random()*100+'vh';
-    const dur = 14+Math.random()*20;
-    el.style.animationDuration = dur+'s';
-    el.style.animationDelay = -Math.random()*dur+'s';
-    el.style.fontSize = (.7+Math.random()*.7)+'rem';
-    container.appendChild(el);
-  }
-})();
-
-// ── Progress ──────────────────────────────────────
-function countAnswered() {
-  let n=0;
-  CATS.forEach(cat=>{
-    if(cat.id==='resumen') return;
-    cat.questions.forEach((_,i)=>{
-      if((data[`${cat.id}_${i}`]||'').trim()) n++;
+function connectFirebase(){
+  setSyncDot('☁️ Conectando...', false);
+  docRef.get()
+    .then(function(snap){
+      fbOk = true;
+      if(snap.exists){
+        var fbData = snap.data();
+        // Fusionar: si Firebase tiene datos, usarlos
+        Object.keys(fbData).forEach(function(k){ data[k] = fbData[k]; });
+        saveLocal();
+        updateProgress();
+        renderTabs();
+        renderCards();
+        setSyncDot('☁️ Conectado', true);
+      } else {
+        // Primera vez: subir datos locales a Firebase
+        docRef.set(data).then(function(){
+          setSyncDot('☁️ Conectado', true);
+        });
+      }
+    })
+    .catch(function(err){
+      console.warn('Firebase:', err);
+      setSyncDot('💾 Sin nube (local)', false);
     });
+}
+
+// Si ya tenía sesión, iniciar app
+if(checkSession()) startApp();
+
+// ═══════════════════════════════════════
+// PÉTALOS
+// ═══════════════════════════════════════
+function spawnPetals(){
+  var c = document.getElementById('petals');
+  var emojis = ['🌸','🌺','🌷','💮','🌼'];
+  for(var i=0;i<18;i++){
+    var el = document.createElement('span');
+    el.className='petal';
+    el.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+    el.style.left=Math.random()*100+'vw';
+    el.style.top=Math.random()*100+'vh';
+    var dur=14+Math.random()*20;
+    el.style.animationDuration=dur+'s';
+    el.style.animationDelay=-Math.random()*dur+'s';
+    el.style.fontSize=(.7+Math.random()*.7)+'rem';
+    c.appendChild(el);
+  }
+}
+
+// ═══════════════════════════════════════
+// ANIVERSARIO
+// ═══════════════════════════════════════
+function showAnniversary(){
+  var today=new Date(), totalDays=Math.floor((today-ANIV_START)/(1000*60*60*24));
+  var years=Math.floor(totalDays/365), months=Math.floor((totalDays%365)/30);
+  var day=today.getDate();
+  var nextThirty=day<30?new Date(today.getFullYear(),today.getMonth(),30):new Date(today.getFullYear(),today.getMonth()+1,30);
+  var daysUntil=Math.ceil((nextThirty-today)/(1000*60*60*24));
+  var isToday=day===30;
+  var badge=document.getElementById('anniversaryBadge');
+  if(!badge) return;
+  badge.innerHTML='<div class="aniv-badge'+(isToday?' aniv-today':'')+'"><div class="aniv-left"><span class="aniv-icon">'+(isToday?'🎉':'💑')+'</span><div><div class="aniv-title">'+(isToday?'¡Feliz Aniversario! 🎊':'Aniversario')+'</div><div class="aniv-date">30 de julio del 2016 · '+years+' años y '+months+' mes'+(months!==1?'es':'')+'</div></div></div><div class="aniv-right"><div class="aniv-count">'+(isToday?'🥂':daysUntil)+'</div><div class="aniv-count-lbl">'+(isToday?'¡Hoy!':'días para el día 30')+'</div></div></div>';
+}
+
+// ═══════════════════════════════════════
+// PROGRESO
+// ═══════════════════════════════════════
+function countAnswered(){
+  var n=0;
+  CATS.forEach(function(cat){
+    if(cat.id==='resumen') return;
+    cat.questions.forEach(function(_,i){ if((data[cat.id+'_'+i]||'').trim()) n++; });
   });
   return n;
 }
-
-function updateProgress(){
-  const n = countAnswered();
-  const pct = Math.round(n/TOTAL_Q*100);
-  document.getElementById('progressText').textContent = `${n} de ${TOTAL_Q} respuestas guardadas`;
-  document.getElementById('progressPct').textContent = `${pct}%`;
-  document.getElementById('progressBar').style.width = pct+'%';
-}
-
 function countCatAnswered(cat){
-  return cat.questions.filter((_,i)=>(data[`${cat.id}_${i}`]||'').trim()).length;
+  return cat.questions.filter(function(_,i){return (data[cat.id+'_'+i]||'').trim();}).length;
+}
+function updateProgress(){
+  var n=countAnswered(), pct=Math.round(n/TOTAL_Q*100);
+  document.getElementById('progressText').textContent=n+' de '+TOTAL_Q+' respuestas guardadas';
+  document.getElementById('progressPct').textContent=pct+'%';
+  document.getElementById('progressBar').style.width=pct+'%';
 }
 
-// ── Tabs ──────────────────────────────────────────
+// ═══════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════
 function renderTabs(){
-  const c = document.getElementById('tabsContainer');
-  c.innerHTML='';
-  CATS.forEach(cat=>{
-    const btn = document.createElement('button');
+  var c=document.getElementById('tabsContainer'); c.innerHTML='';
+  CATS.forEach(function(cat){
+    var btn=document.createElement('button');
     btn.className='tab'+(cat.id===current?' active':'');
-    const answered = cat.id==='resumen'? countAnswered() : countCatAnswered(cat);
-    const total    = cat.id==='resumen'? TOTAL_Q : cat.questions.length;
-    btn.innerHTML = `${cat.emoji} ${cat.label} <span class="tab-count">${answered}/${total}</span>`;
-    btn.onclick=()=>{ current=cat.id; renderTabs(); renderCards(); window.scrollTo({top:0,behavior:'smooth'}); };
+    var ans=cat.id==='resumen'?countAnswered():countCatAnswered(cat);
+    var tot=cat.id==='resumen'?TOTAL_Q:cat.questions.length;
+    btn.innerHTML=cat.emoji+' '+cat.label+' <span class="tab-count">'+ans+'/'+tot+'</span>';
+    btn.onclick=function(){ current=cat.id; renderTabs(); renderCards(); window.scrollTo({top:0,behavior:'smooth'}); };
     c.appendChild(btn);
   });
 }
 
-// ── Toast ─────────────────────────────────────────
-let toastTimer;
+// ═══════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════
+var toastTimer;
 function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;
-  t.classList.add('show');
+  var t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer=setTimeout(()=>t.classList.remove('show'),2400);
+  toastTimer=setTimeout(function(){ t.classList.remove('show'); },2400);
 }
 
-// ── Cards ─────────────────────────────────────────
+// ═══════════════════════════════════════
+// CARDS
+// ═══════════════════════════════════════
 function renderCards(){
-  const c=document.getElementById('cardsContainer');
-  c.innerHTML='';
-
+  var c=document.getElementById('cardsContainer'); c.innerHTML='';
   if(current==='resumen'){ renderSummary(c); return; }
-
-  const cat=CATS.find(x=>x.id===current);
-
-  // header
-  const hdr=document.createElement('div');
-  hdr.className='cat-header';
-  hdr.innerHTML=`
-    <div class="cat-emoji">${cat.emoji}</div>
-    <div>
-      <div class="cat-title">${cat.label}</div>
-      <div class="cat-desc">${cat.desc}</div>
-    </div>`;
+  var cat=CATS.find(function(x){return x.id===current;});
+  var hdr=document.createElement('div'); hdr.className='cat-header';
+  hdr.innerHTML='<div class="cat-emoji">'+cat.emoji+'</div><div><div class="cat-title">'+cat.label+'</div><div class="cat-desc">'+cat.desc+'</div></div>';
   c.appendChild(hdr);
-
-  // questions
-  cat.questions.forEach((q,i)=>{
-    const key=`${cat.id}_${i}`;
-    const val=data[key]||'';
-    const has=val.trim().length>0;
-    const dateKey=`${key}_date`;
-
-    const isNotes = cat.id==='notas';
-    const card=document.createElement('div');
+  cat.questions.forEach(function(q,i){
+    var key=cat.id+'_'+i, dateKey=key+'_date';
+    var val=data[key]||'', has=val.trim().length>0;
+    var isNotes=cat.id==='notas';
+    var card=document.createElement('div');
     card.className=(isNotes?'q-card notes-card':'q-card')+(has?' answered':'');
     card.style.animationDelay=(i*.04)+'s';
-
-    card.innerHTML=`
-      <div class="q-num">${isNotes?'📝 Nota libre':'Pregunta '+(i+1)}</div>
-      <div class="q-text">${q}</div>
-      <div class="answer-wrap">
-        <textarea class="answer-area" placeholder="Escribe la respuesta de Anny aquí..." rows="2">${val}</textarea>
-        <span class="check-icon">✅</span>
-      </div>
-      ${has&&data[dateKey]?`<div class="date-badge">Guardado: ${data[dateKey]}</div>`:''}
-    `;
-
-    const ta=card.querySelector('textarea');
-    ta.addEventListener('input',()=>{
-      data[key]=ta.value;
-      const filled=ta.value.trim().length>0;
-      if(filled && !data[dateKey]) data[dateKey]=new Date().toLocaleDateString('es-PE',{day:'2-digit',month:'short',year:'numeric'});
-      if(!filled) delete data[dateKey];
-      save();
-      card.classList.toggle('answered',filled);
-      updateProgress();
-      renderTabs();
-    });
-    ta.addEventListener('blur',()=>{
-      if(ta.value.trim()) showToast('💕 Respuesta de Anny guardada');
-    });
-
+    card.innerHTML='<div class="q-num">'+(isNotes?'📝 Nota libre':'Pregunta '+(i+1))+'</div>'+
+      '<div class="q-text">'+q+'</div>'+
+      '<div class="answer-wrap"><textarea class="answer-area" placeholder="Escribe la respuesta de Anny aquí..." rows="2">'+val+'</textarea><span class="check-icon">✅</span></div>'+
+      (has&&data[dateKey]?'<span class="date-badge">Guardado: '+data[dateKey]+'</span>':'');
+    var ta=card.querySelector('textarea');
+    (function(k,dk,cd){
+      ta.addEventListener('input',function(){
+        data[k]=ta.value;
+        var filled=ta.value.trim().length>0;
+        if(filled&&!data[dk]) data[dk]=new Date().toLocaleDateString('es-PE',{day:'2-digit',month:'short',year:'numeric'});
+        if(!filled) delete data[dk];
+        saveAll();
+        cd.classList.toggle('answered',filled);
+        updateProgress(); renderTabs();
+      });
+      ta.addEventListener('blur',function(){ if(ta.value.trim()) showToast('💕 Respuesta de Anny guardada'); });
+    })(key,dateKey,card);
     c.appendChild(card);
   });
-
-  // save btn
-  const btn=document.createElement('button');
-  btn.className='save-btn';
+  var btn=document.createElement('button'); btn.className='save-btn';
   btn.innerHTML='💾 &nbsp;Guardar todo';
-  btn.onclick=()=>{ save(); showToast('✅ Todo guardado correctamente 💕'); };
+  btn.onclick=function(){ saveAll(); showToast('✅ Todo guardado correctamente 💕'); };
   c.appendChild(btn);
 }
 
-// ── Summary ───────────────────────────────────────
+// ═══════════════════════════════════════
+// PERFIL
+// ═══════════════════════════════════════
 function renderSummary(c){
-  const total=countAnswered();
-  const cats_answered=CATS.filter(x=>x.id!=='resumen'&&countCatAnswered(x)>0).length;
-
-  // hero
-  const hero=document.createElement('div');
-  hero.className='profile-hero';
-  hero.innerHTML=`
-    <div class="profile-avatar">🌸</div>
-    <div class="profile-name">${NAME}</div>
-    <div class="profile-since">Juntos desde el 30 de julio del 2016 💕</div>
-    <div class="profile-stats">
-      <div class="stat"><div class="stat-num">${total}</div><div class="stat-lbl">Respuestas</div></div>
-      <div class="stat"><div class="stat-num">${cats_answered}</div><div class="stat-lbl">Categorías</div></div>
-      <div class="stat"><div class="stat-num">${Math.round(total/TOTAL_Q*100)}%</div><div class="stat-lbl">Completado</div></div>
-    </div>`;
+  var total=countAnswered();
+  var catsAns=CATS.filter(function(x){return x.id!=='resumen'&&countCatAnswered(x)>0;}).length;
+  var hero=document.createElement('div'); hero.className='profile-hero';
+  hero.innerHTML='<div class="profile-avatar">🌸</div><div class="profile-name">'+NAME+'</div>'+
+    '<div class="profile-since">Juntos desde el 30 de julio del 2016 💕</div>'+
+    '<div class="profile-stats"><div class="stat"><div class="stat-num">'+total+'</div><div class="stat-lbl">Respuestas</div></div>'+
+    '<div class="stat"><div class="stat-num">'+catsAns+'</div><div class="stat-lbl">Categorías</div></div>'+
+    '<div class="stat"><div class="stat-num">'+Math.round(total/TOTAL_Q*100)+'%</div><div class="stat-lbl">Completado</div></div></div>';
   c.appendChild(hero);
-
   if(total===0){
-    const empty=document.createElement('div');
-    empty.className='empty-state';
-    empty.innerHTML=`<div class="empty-icon">🌷</div><p>Aún no hay respuestas guardadas.<br>¡Empieza a conocer a Anny poco a poco!</p>`;
-    c.appendChild(empty);
+    var e=document.createElement('div'); e.className='empty-state';
+    e.innerHTML='<div class="empty-icon">🌷</div><p>Aún no hay respuestas guardadas.<br>¡Empieza a conocer a Anny poco a poco! 💕</p>';
+    c.appendChild(e);
   } else {
-    CATS.forEach(cat=>{
+    CATS.forEach(function(cat){
       if(cat.id==='resumen') return;
-      const answered=cat.questions.map((q,i)=>({q,a:data[`${cat.id}_${i}`]||'',d:data[`${cat.id}_${i}_date`]||''})).filter(x=>x.a.trim());
-      if(!answered.length) return;
-      const sec=document.createElement('div');
-      sec.className='summary-section';
-      sec.innerHTML=`<h3>${cat.emoji} ${cat.label}</h3>`;
-      answered.forEach(({q,a,d})=>{
-        const item=document.createElement('div');
-        item.className='summary-item';
-        item.innerHTML=`<div class="summary-q">${q}${d?` <span style="color:#c4a4ae;font-style:italic">· ${d}</span>`:''}</div><div class="summary-a">${a}</div>`;
+      var ans=cat.questions.map(function(q,i){return{q:q,a:data[cat.id+'_'+i]||'',d:data[cat.id+'_'+i+'_date']||''};}).filter(function(x){return x.a.trim();});
+      if(!ans.length) return;
+      var sec=document.createElement('div'); sec.className='summary-section';
+      sec.innerHTML='<h3>'+cat.emoji+' '+cat.label+'</h3>';
+      ans.forEach(function(x){
+        var item=document.createElement('div'); item.className='summary-item';
+        item.innerHTML='<div class="summary-q">'+x.q+(x.d?' <span style="color:#c4a4ae;font-style:italic">· '+x.d+'</span>':'')+'</div><div class="summary-a">'+x.a+'</div>';
         sec.appendChild(item);
       });
       c.appendChild(sec);
     });
   }
-
-  const expBtn=document.createElement('button');
-  expBtn.className='export-btn';
-  expBtn.innerHTML='📄 &nbsp;Exportar como texto';
-  expBtn.onclick=exportTxt;
+  var expBtn=document.createElement('button'); expBtn.className='export-btn';
+  expBtn.innerHTML='📄 &nbsp;Exportar como texto'; expBtn.onclick=exportTxt;
   c.appendChild(expBtn);
 }
 
+// ═══════════════════════════════════════
+// EXPORTAR
+// ═══════════════════════════════════════
 function exportTxt(){
-  let txt=`💕 PERFIL COMPLETO DE ${NAME.toUpperCase()} 💕\n${'═'.repeat(44)}\n\n`;
-  CATS.forEach(cat=>{
+  var txt='💕 PERFIL COMPLETO DE '+NAME.toUpperCase()+' 💕\n'+'═'.repeat(44)+'\n\n';
+  CATS.forEach(function(cat){
     if(cat.id==='resumen') return;
-    const answered=cat.questions.map((q,i)=>({q,a:data[`${cat.id}_${i}`]||'',d:data[`${cat.id}_${i}_date`]||''})).filter(x=>x.a.trim());
-    if(!answered.length) return;
-    txt+=`${cat.emoji}  ${cat.label.toUpperCase()}\n${'─'.repeat(32)}\n`;
-    answered.forEach(({q,a,d})=>{ txt+=`• ${q}\n  → ${a}${d?' ('+d+')':''}\n\n`; });
+    var ans=cat.questions.map(function(q,i){return{q:q,a:data[cat.id+'_'+i]||'',d:data[cat.id+'_'+i+'_date']||''};}).filter(function(x){return x.a.trim();});
+    if(!ans.length) return;
+    txt+=cat.emoji+'  '+cat.label.toUpperCase()+'\n'+'─'.repeat(32)+'\n';
+    ans.forEach(function(x){ txt+='• '+x.q+'\n  → '+x.a+(x.d?' ('+x.d+')':'')+'\n\n'; });
   });
-  txt+=`\nGenerado el ${new Date().toLocaleDateString('es-PE',{weekday:'long',year:'numeric',month:'long',day:'numeric'})} 💕`;
-  const blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url; a.download='perfil-anny-flores-valle.txt'; a.click();
+  txt+='\nGenerado el '+new Date().toLocaleDateString('es-PE',{weekday:'long',year:'numeric',month:'long',day:'numeric'})+' 💕';
+  var blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url; a.download='perfil-anny-lucero-flores-valle.txt'; a.click();
   URL.revokeObjectURL(url);
   showToast('📄 Archivo descargado 💕');
 }
-
-// ── Init ──────────────────────────────────────────
-updateProgress();
-renderTabs();
-loadFromFirebase();
 </script>
 </body>
 </html>
